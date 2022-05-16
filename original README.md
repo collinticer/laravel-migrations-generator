@@ -1,8 +1,14 @@
 # Laravel Migrations Generator
 
+![Style check CI](https://github.com/kitloong/laravel-migrations-generator/actions/workflows/check.yml/badge.svg?branch=5.x)
+[![codecov](https://codecov.io/gh/kitloong/laravel-migrations-generator/branch/5.x/graph/badge.svg?token=U6ZRDPY6QZ)](https://codecov.io/gh/kitloong/laravel-migrations-generator)
+![Tests CI](https://github.com/kitloong/laravel-migrations-generator/actions/workflows/tests.yml/badge.svg?branch=5.x)
+[![Latest Stable Version](https://poser.pugx.org/kitloong/laravel-migrations-generator/v/stable.png)](https://packagist.org/packages/kitloong/laravel-migrations-generator)
+[![Total Downloads](http://poser.pugx.org/kitloong/laravel-migrations-generator/downloads)](https://packagist.org/packages/kitloong/laravel-migrations-generator)
+[![License](https://poser.pugx.org/kitloong/laravel-migrations-generator/license.png)](https://packagist.org/packages/kitloong/laravel-migrations-generator)
+
 Generate Laravel Migrations from an existing database, including indexes and foreign keys!
 
-<<<<<<< Updated upstream
 This package is cloned from https://github.com/Xethron/migrations-generator and updated to support Laravel 5.6 and above, with a lot of feature improvements.
 
 ## Supported Database
@@ -17,6 +23,7 @@ Currently, Generator support generate migrations from:
 
 |Laravel|Version|
 |---|---|
+|9.x|5.x|
 |8.x|5.x|
 |7.x|5.x|
 |6.x|5.x|
@@ -121,18 +128,15 @@ Run `php artisan help migrate:generate` for a list of options.
 |--squash|Generate all migrations into a single file|
 
 ## Thank You
-=======
-This package is cloned from https://github.com/kitloong/laravel-migrations-generator with only a minor addition to support a `--skip-indices` option which prevents columns from having any index related eloquent specifications and without any foreign key constraints between table columns. Our use-case required this addition to support a legacy/archived MSSQL database that was being converted to MySQL. To make the transition easier, we removed calls to any index related functions.
->>>>>>> Stashed changes
 
-## Use
+Thanks to Bernhard Breytenbach for his great work. This package is cloned from https://github.com/Xethron/migrations-generator.
 
-Simply run your `php artisan` command as specified at https://github.com/kitloong/laravel-migrations-generator and include the new `--skip-indices` option.
+Thanks to Jeffrey Way for his amazing Laravel-4-Generators package. This package depends greatly on his work.
 
-Example:
+## Contributors
 
-`php artisan migrate:generate --tables="DBA.Accounts" --skip-views --skip-indices`
+[![Contributors](https://contrib.rocks/image?repo=kitloong/laravel-migrations-generator)](https://github.com/kitloong/laravel-migrations-generator/graphs/contributors)
 
-## Additional Read me
+## License
 
-The rest of the readme is provided as is from the original project - [kitloong/laravel-migrations-generator/README.md](./original%20README.md)
+The Laravel Migrations Generator is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)

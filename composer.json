@@ -1,12 +1,12 @@
 {
-	"name": "kitloong/laravel-migrations-generator",
+	"name": "collinticer/laravel-migrations-generator",
 	"description": "Generates Laravel Migrations from an existing database",
 	"keywords": ["laravel", "lumen", "migration", "generator", "migrations", "artisan"],
 	"license": "MIT",
 	"authors": [
 		{
-			"name": "Kit Loong",
-			"email": "kitloong1008@gmail.com"
+			"name": "Collin Ticer",
+			"email": "collin.ticer@gmail.com"
 		}
 	],
 	"require": {
