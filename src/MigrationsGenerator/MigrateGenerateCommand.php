@@ -30,6 +30,7 @@ class MigrateGenerateCommand extends Command
                             {--default-fk-names : Don\'t use db foreign key names for migrations}
                             {--use-db-collation : Follow db collations for migrations}
                             {--skip-views : Don\'t generate views}
+                            {--skip-indices : Don\'t generate index identifiers on columns}
                             {--squash : Generate all migrations into a single file}';
 
     /**
@@ -287,17 +288,20 @@ class MigrateGenerateCommand extends Command
             $this->generateViews($views);
         }
 
-        $this->info("\nSetting up Foreign Key Migrations");
+        if( $this->option( 'skip-indices' ) == false )
+        {
+            $this->info("\nSetting up Foreign Key Migrations");
 
-        $this->generateForeignKeys($tables);
+            $this->generateForeignKeys($tables);
 
-        if (app(MigrationsGeneratorSetting::class)->isSquash()) {
-            $migrationFilepath = $this->generator->squashMigrations();
+            if (app(MigrationsGeneratorSetting::class)->isSquash()) {
+                $migrationFilepath = $this->generator->squashMigrations();
 
-            $this->info("\nAll migrations squashed.");
+                $this->info("\nAll migrations squashed.");
 
-            if ($this->shouldLog) {
-                $this->logMigration($migrationFilepath);
+                if ($this->shouldLog) {
+                    $this->logMigration($migrationFilepath);
+                }
             }
         }
     }
@@ -310,21 +314,28 @@ class MigrateGenerateCommand extends Command
      */
     private function generateTables(array $tables): void
     {
+        $indexesArr = [];
+
+        if( $this->option( 'skip-indices' ) == false )
+        {
+            $indexesArr = $this->schema->getIndexes($table);
+        }
+
         foreach ($tables as $table) {
             $this->writeMigration(
                 $table,
-                function () use ($table) {
+                function () use ($table, $indexesArr) {
                     $this->generator->writeTableToTemp(
                         $this->schema->getTable($table),
                         $this->schema->getColumns($table),
-                        $this->schema->getIndexes($table)
+                        $indexesArr
                     );
                 },
-                function () use ($table): string {
+                function () use ($table, $indexesArr): string {
                     return $this->generator->writeTableToMigrationFile(
                         $this->schema->getTable($table),
                         $this->schema->getColumns($table),
-                        $this->schema->getIndexes($table)
+                        $indexesArr
                     );
                 }
             );
